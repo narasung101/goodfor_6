@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.goodfor.web.seho.TradingMapper">
+	
+	<update id="updateTrading" parameterType="Trading">
+		UPDATE TRADING
+		SET NPRICE = #{nprice}, SELLPRICE = #{sellprice}, PCONTRAST = #{pcontrast}, BUYPRICE = #{buyprice},
+		FRATE = #{frate}, CPRICE = #{cprice}, TVOLUME = #{tvolume}, SPRICE = #{sprice}, TAMOUNT = #{tamount},
+		HPRICE = #{hprice}, FVALUE = #{fvalue},LPRICE = #{lprice}, ULPRICE = #{ulprice}, PULPRICE = #{pulprice},
+		DLPRICE = #{dlprice}, PDLPRICE = #{pdlprice}, PER = #{per}, EPS = #{eps}, FTWEEKTOP = #{ftweektop},
+		FTWEEKLOW = #{ftweeklow}, MTOTAL = #{mtotal}, TNUMSTOCK = #{tnumstock}, FNOW = #{fnow}, CAPITAL = #{capital}
+		WHERE STOCKCODE LIKE #{stockcode};
+	</update>
+	
+	<update id="updateCaccount" parameterType="CAccount">
+		UPDATE CACCOUNT
+		SET BALANCE = #{balance}
+		WHERE CID LIKE #{cid}
+	</update>
+	
+	<select id="searchCaccount" resultType="CAccount">
+		SELECT *
+		FROM CACCOUNT
+		WHERE CID LIKE #{cid}
+	</select>
+	
+	<insert id="insertTrading" parameterType="Trading">
+		INSERT INTO 
+		TRADING(STOCKCODE, STOCKNAME, NPRICE, SELLPRICE, PCONTRAST, BUYPRICE, FRATE, CPRICE, TVOLUME, SPRICE, TAMOUNT, HPRICE, 
+		FVALUE, LPRICE,	ULPRICE, PULPRICE, DLPRICE, PDLPRICE, PER, EPS, FTWEEKTOP, FTWEEKLOW, MTOTAL, TNUMSTOCK, FNOW, CAPITAL)
+		VALUES (#{stockcode}, #{stockname}, #{nprice}, #{sellprice}, #{pcontrast}, #{buyprice}, #{frate}, #{cprice}, #{tvolume},
+		#{sprice}, #{tamount}, #{hprice}, #{fvalue}, #{lprice}, #{ulprice}, #{pulprice}, #{dlprice}, #{pdlprice}, #{per}, #{eps},
+		#{ftweektop}, #{ftweeklow}, #{mtotal}, #{tnumstock}, #{fnow}, #{capital} )
+	</insert>
+	
+	<select id="search" resultType="Trading">
+		SELECT * FROM TRADING WHERE STOCKNAME LIKE #{stockname};
+	</select>
+	
+	<select id="searchStockname" resultType="Trading">
+		SELECT STOCKNAME, STOCKCODE, NPRICE, TVOLUME, PCONTRAST, FRATE, HPRICE, LPRICE, CPRICE
+		FROM TRADING
+		WHERE STOCKNAME LIKE #{stockname};
+	</select>
+	
+	<update id="updateBizInfo" parameterType="BizInfo">
+		UPDATE BIZINFO
+		SET MTAMOUNT = #{mtamount}, MTARANK = #{mtarank}, TNUMSTOCK = #{tnumstock}, FVALUEUNIT = #{fvalueunit}, FLNUMSTOCK = #{flnumstock},
+		FHNUMSTOCK = #{fhnumstock}, FERATE = #{ferate}, IOTSPRICE = #{iotsprice}, FTWEEKTOPLOW = #{ftweektoplow}, PERFG = #{perfg}, 
+		KRX = #{krx}, EPER = #{eper}, PBRFG = #{pbrfg}, DRATE = #{drate}, STPER = #{stper}, STRATE = #{strate}
+		WHERE STOCKCODE LIKE #{stockcode};
+	</update>
+		
+	<insert id="insertInterest" parameterType="Interest">
+		INSERT INTO 
+		INTEREST(CID, STOCKNAME)
+		VALUES (#{cid}, #{stockname})
+	</insert>
+	
+	<insert id="insertSellStock" parameterType="SellStock">
+		INSERT INTO
+		SELLSTOCK(STOCKCODE, ORDERNUM, ORDERPRICE, ORDERTYPE, CONDATE, CONPRICE, ACCOUNTNUM, CID, STOCKNAME)
+		VALUES (#{stockcode}, #{ordernum}, #{orderprice}, #{ordertype}, #{condate}, #{conprice}, #{accountnum}, #{cid}, #{stockname});
+	</insert>
+	
+	<insert id="insertBuyStock" parameterType="BuyStock">
+		INSERT INTO
+		BUYSTOCK(STOCKCODE, ORDERNUM, ORDERPRICE, ORDERTYPE, CONDATE, CONPRICE, ACCOUNTNUM, CID, STOCKNAME)
+		VALUES (#{stockcode}, #{ordernum}, #{orderprice}, #{ordertype}, #{condate}, #{conprice}, #{accountnum}, #{cid}, #{stockname});
+	</insert>
+	
+	<insert id="insertMyStock" parameterType="MyStock">
+		INSERT INTO
+		MYSTOCK(STOCKCODE, STOCKNAME, QUANTITYNUM, ACCOUNTNUM, CID, ORDERPRICE, CONPRICE)
+		VALUES (#{stockcode}, #{stockname}, #{quantitynum}, #{accountnum}, #{cid}, #{orderprice}, #{conprice});
+	</insert>
+	
+	<insert id="insertTempStock" parameterType="TempStock">
+	INSERT INTO
+	TEMPSTOCK(TRADETYPE, STOCKCODE, STOCKNAME, ORDERNUM, ORDERPRICE, ORDERTYPE, CONWHETHER, CONDATE, CONPRICE, ACCOUNTNUM, CID)
+	VALUES (#{tradetype}, #{stockcode}, #{stockname}, #{ordernum}, #{orderprice}, #{ordertype}, #{conwhether}, #{condate}, #{conprice}, #{accountnum}, #{cid});
+	</insert>
+	
+	<update id="updateTempStock" parameterType="TempStock">
+		UPDATE TEMPSTOCK
+		SET CONWHETHER = #{conwhether}, CONPRICE = #{conprice}
+		WHERE STOCKNAME LIKE #{stockname};
+	</update>
+	
+	<select id="searchInterest" resultType="String">
+		SELECT SEQ FROM INTEREST WHERE CID LIKE #{cid};
+	</select>
+	
+	<select id="searchSeqInterest" resultType="String">
+		SELECT STOCKNAME FROM INTEREST WHERE SEQ LIKE #{seq} AND CID LIKE #{cid};
+	</select>
+	
+	<select id="searchInSeq" resultType="int">
+		SELECT SEQ FROM INTEREST WHERE STOCKNAME LIKE #{stockname}
+	</select>
+	
+	<select id="inCount" resultType="int">
+		SELECT COUNT(*) COUNT
+		FROM INTEREST WHERE CID LIKE #{cid}
+	</select>
+	
+	<delete id="deleteInterest" parameterType="int">
+		DELETE FROM INTEREST
+		WHERE SEQ LIKE #{seq};
+	</delete>
+		
+	<delete id="deleteMyStock" parameterType="String">
+		DELETE FROM MYSTOCK
+		WHERE SEQ LIKE #{seq};
+	</delete>
+	
+	<select id="searchTempStock" resultType="TempStock">
+		SELECT *
+		FROM TEMPSTOCK
+		WHERE CID LIKE #{cid} AND TRADETYPE LIKE #{tradetype};
+	</select>
+	
+	<delete id="deleteTempStock" parameterType="int">
+		DELETE FROM TEMPSTOCK
+		WHERE SEQ LIKE #{seq};
+	</delete>
+	
+	<insert id="insertAccount" parameterType="CAccount">
+		INSERT INTO
+		CACCOUNT(ACCOUNTNUM, CID, CPW, BALANCE)
+		VALUES(#{accountnum}, #{cid}, #{cpw}, #{balance})
+	</insert>
+	
+	<select id="searchAccount" parameterType="String" resultType="int">
+		SELECT COUNT(*) COUNT
+		FROM CACCOUNT
+		WHERE CID LIKE #{cid}
+	</select>
+	
+	<select id="searchAccountnum" parameterType="String" resultType="int">
+		SELECT COUNT(*) COUNT
+		FROM CACCOUNT
+		WHERE ACCOUNTNUM LIKE #{accountnum}
+	</select>
+	
+	<select id="searchAnum" resultType="String">
+		SELECT ACCOUNTNUM
+		FROM CACCOUNT
+		WHERE CID LIKE #{cid}
+	</select>
+	
+	<select id="searchseq" resultType="String">
+		SELECT SEQ
+		FROM MYSTOCK
+		WHERE CID LIKE #{cid}
+	</select>
+	
+	<select id="searchcount" resultType="int">
+		SELECT COUNT(*) COUNT
+		FROM MYSTOCK
+		WHERE CID LIKE #{cid}
+	</select>
+	
+	<select id="searchName" resultType="String">
+		SELECT *
+		FROM MYSTOCK
+		WHERE CID LIKE #{cid} AND SEQ LIKE #{seq};
+	</select>
+	
+	<select id="vueMyStock" resultType="MyStock">
+		SELECT *
+		FROM MYSTOCK
+		WHERE CID LIKE #{cid};
+	</select>
+	
+	<select id="searchMyStock" resultType="MyStock">
+		SELECT *
+		FROM MYSTOCK
+		WHERE STOCKCODE LIKE #{stockcode};
+	</select>
+	
+	<update id="updateMyStock" parameterType="MyStock">
+		UPDATE MYSTOCK
+		SET QUANTITYNUM = #{quantitynum}
+		WHERE STOCKNAME LIKE #{stockname} AND CID LIKE #{cid};
+	</update>
+	
+	<select id="vueData" parameterType="String" resultType="Trading">
+		SELECT NPRICE, CPRICE, BUYPRICE, SELLPRICE, STOCKCODE
+		FROM TRADING
+		WHERE STOCKNAME LIKE #{stockname}
+	</select>
+	
+	<select id="searchCus" resultType="Customer">
+		SELECT *
+		FROM CUSTOMER
+		WHERE CID LIKE #{cid}
+	</select>
+	
+	<select id="buystockCount" resultType="int">
+		SELECT COUNT(*) COUNT
+		FROM BUYSTOCK
+		WHERE CID LIKE #{cid}
+	</select>
+	
+	<select id="sellstockCount" resultType="int">
+		SELECT COUNT(*) COUNT
+		FROM SELLSTOCK
+		WHERE CID LIKE #{cid}
+	</select>
+	
+	<select id="vueBuystock" resultType="BuyStock">
+		SELECT * 
+		FROM BUYSTOCK
+		WHERE CID LIKE #{cid} AND SEQ LIKE #{seq};
+	</select>
+	
+	<select id="vueSellstock" resultType="SellStock">
+		SELECT * 
+		FROM SELLSTOCK
+		WHERE CID LIKE #{cid} AND SEQ LIKE #{seq};
+	</select>
+	
+	<select id="buySeq" resultType="String">
+		SELECT SEQ
+		FROM BUYSTOCK
+		WHERE CID LIKE #{cid};
+	</select>
+	
+	<select id="sellSeq" resultType="String">
+		SELECT SEQ
+		FROM SELLSTOCK
+		WHERE CID LIKE #{cid};
+	</select>
+	
+	
+	<select id="vueBuystockAll" resultType="BuyStock">
+		SELECT * 
+		FROM BUYSTOCK
+		WHERE CID LIKE #{cid} ;
+	</select>
+	
+	<select id="vueSellstockAll" resultType="SellStock">
+		SELECT * 
+		FROM SELLSTOCK
+		WHERE CID LIKE #{cid};
+	</select>
+	
+</mapper>
