@@ -15,16 +15,8 @@
 	<div id="intro">
 		<link rel="stylesheet" href="http://www.kaiwa-projects.com/assets/css/qbkl-grid.css">
 	  <link rel="stylesheet" href="http://www.kaiwa-projects.com/assets/css/style-ko.css">
- 		<div class="top-decorations">
-						<a href="#" style="
-					position: absolute;
-					left: 15px;
-					top: 20px;
-					text-decoration: none;
-					color: #ffffff;
-				"></a>
-					</div>
- 		<!--  <div class="top-decorations" style="width: 100%; position: absolute; "></div>  -->
+ 		
+ 		  <div class="top-decorations" style="width: 100%; position: absolute; "></div>  
 	
 		<section id="intro" class="fx-backstretch">
 			<div class="info" style="position: relative; z-index: 0; background: none;">
@@ -67,25 +59,28 @@
 				</div>
 				<div class="row section-content">
 					<div class="col-1-3" style="text-align: center;">
-						<img src="resources/img/면접용.jpeg" style="height: 200px;" src="">
+						<img src="<%=application.getContextPath()%>/resources/img/ns2.jpg" style="height: 200px;">
 					</div>
 
-					<div class="col-1-3">
-						<h4>안녕하세요? 나성입니다!</h4>
-						<p> 포트폴리오는<a href="#portfolio">여기를 누르시거나</a> 페이지 아래쪽에서 구경해 보세요! 도움이 필요하세요? <a href="#contact">이메일</a>로 연락 주세요.</p>
+					<div class="col-1-2" style="color:black;">
+						<h4>안녕하세요 굿포 프로젝트 개발에 참여한 나성입니다!</h4>
+						<p>굿포 프로젝트는 모의 주식, 증권 정보를 주제로 사이트를 만들었습니다. <br> 프로젝트, 포트폴리오는  <a href="#portfolio">여기를 누르시거나</a> 페이지 아래쪽에서 구경해 보세요! 
+						<br> 더 궁금하신 사항은 <a href="#contact">이메일</a>로 연락 주세요.</p>
 						<ul class="social-links clearfix">
 							<li><a href="" target="_blank" title="Github"><i class="fa fa-github"></i></a></li>
 						</ul>
 					</div>
-					 <div class="col-1-3">
+					<!-- 
+					 <div class="col-1-3" >
 						<h4>개인 관심사</h4>
 						<p><a href="#skills"></a></p>
 						<ul>
+							<li>자전거 타는 것을 좋아합니다.</li>
 							<li>여행을 다니는 것을 좋아합니다</li>
-							<li>책 읽는 것을 좋아합니다</li>
-							<li>예전 영화나 최신영화를 보는것을 즐깁니다.</li>
+							<li>영화보는 것을 좋아합니다.</li>
 						</ul>
 					</div>
+					 -->
 				</div>
 			</div>
 		</section>
@@ -100,9 +95,9 @@
 				<div class="row section-content" style="margin:0 auto">
 					<div class="skill-container">
 						<div class="col-full">
-							<div class="col-full text-center" style="color: #333;">저는 웹으로는  자바를 사용합니다.<br>
-							화면은 부트스트랩과 제이쿼리를 이용해 구성하였고
-							<br>데이터베이스는 MariaDB를 사용하였습니다.
+							<div class="col-full text-center" style="color: #333;">Spring Framework5에 Maven 빌드 시스템을 적용, MVC2패턴으로<br>
+								개발환경을 구축하였으며, 프래밍 언어와 기술은 JAVA, HTML5, CSS, JQuery, Ajax, Bootstrap, Mybatis를 적용하였고, <br>
+								데이터베이스는 MySQL, Tool은 Eclipse, STS, MySQL Workbench 를 사용했습니다.
 							</div>
 						</div>
 						<div class="col-1-5 skill">
@@ -124,11 +119,15 @@
 					<div class="col-2-3 col-wrap centered skill-container" style="with:100%;justify-content: center;">
 						<div class="col-1-2" style="padding-left:100px">
 							<h4>프레임워크하고 엔진</h4>
-							<ul style="color: #333;"><li>Spring5</li></ul>							
+							<ul style="color: #333;">
+								<li>Spring5</li>
+								<li>전자정부</li>
+								<li>MyBatis</li>
+							</ul>							
 						</div>
 						<div class="col-1-2" style="padding-left:100px">
 							<h4>소프트웨어</h4>
-							<ul style="color: #333;"><li>Git</li><li>MySQL</li><li>MariaDB</li></ul>	
+							<ul style="color: #333;"><li>Git</li><li>ORACLE</li><li>MySQL</li><li>MariaDB</li></ul>	
 						</div>
 					</div>
 				</div>
@@ -138,7 +137,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-full">
-						<h2 class="section-title">프로젝트 & Git Hub</h2>
+						<h2 class="section-title">프로젝트 & PPT & Git Hub</h2>
 						<div class="centered line"></div>
 					</div>
 				</div>
@@ -150,17 +149,37 @@
 							</ul>
 						</div>
 					</div>
-					<div class="row projects gallery" style="margin-left: 320px;">
+					<div class="row projects gallery" style="margin-left: 200px;">
 						<div class="col-1-6 project port-application mix_all" style="display: inline-block;  opacity: 1; padding-top: 30px;">
-							<a id="project" href="#">
+							<h2 style="color:black">프로젝트</h2>
+							<a id="project" href="#" >
 								<img src="<%=application.getContextPath()%>/resources/img/project_logo.png" alt="project">
 							</a>
-						</div>
+						</div>										
+						
+							<div class="col-1-6 project port-game mix_all" style="display: inline-block;  opacity: 1; padding-top: 30px;">
+							<h2 style="color:black">유튜브</h2>
+							<a href="https://www.youtube.com/watch?v=yyfyVgnZFko&feature=youtu.be" title="youtube" target="_blank">
+								<img src="<%=application.getContextPath()%>/resources/img/youtube_pt.png" alt="youtube">
+							</a>
+						</div>	
+						
 						<div class="col-1-6 project port-game mix_all" style="display: inline-block;  opacity: 1; padding-top: 30px;">
-							<a href="https://github.com/자신주소" title="github" >
-								<img src="" alt="Super Puzzle Platformer is a Unity game developed in 14 days.">
+							<h2 style="color:black">PPT</h2>
+							<a href="https://docs.google.com/presentation/d/1CFQHkpaXR5q-S6Nbi7pp-AlPZVuCBu45qdfbOBdjLaE/edit?usp=sharing" title="ppt" target="_blank">
+								<img src="<%=application.getContextPath()%>/resources/img/ppt.jpeg" alt="ppt">
+							</a>
+						</div>	
+						
+						<div class="col-1-6 project port-game mix_all" style="display: inline-block;  opacity: 1; padding-top: 30px;">
+							<h2 style="color:black">깃허브</h2>
+							<a href="https://github.com/narasung101" title="github" target="_blank">
+								<img src="<%=application.getContextPath()%>/resources/img/github-mark.png" alt="github">
 							</a>
 						</div>						
+											
+						
+											
 					</div>
 				</div>
 			</div>
@@ -190,8 +209,7 @@
 							</div>
 							<div class="col-full">
 								<label for="">Email 주소
-
-									<h2>narasung101@naver.com</h2>
+								<h2 style="text-transform: lowercase">narasung101@naver.com</h2>				
 								</label>
 							</div>
 							<div class="col-full">

@@ -129,7 +129,6 @@ public class BoardCtrl extends Proxy {
 		paramMap.clear();
 		paramMap.put("msg", "DELETE SUCCESS");
 
-
 		return paramMap;
 	}
 		

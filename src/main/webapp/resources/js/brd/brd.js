@@ -94,6 +94,25 @@ brd = (() => {
 			</div>`).appendTo('#body_main')
 		
 		write(type)
+		
+		$(`
+			<form>
+			 <select id="pageSize" class="btn btn-default" style="border: solid 1px #ddd; font-size: 13px;">
+			  <option value="5">5개씩 </option>
+			  <option value="10">10개씩</option>
+			  <option value="15">15개씩</option>
+			</select>
+			<input id="btn_page_size" type="submit" value="보기" class="btn btn-default" style="border: solid 1px #ddd; font-size: 13px;"/>
+			</form>
+		`).appendTo('#page_sizeForm')
+			
+		
+			$('#btn_page_size').click(e => {
+				e.preventDefault()
+				list({ ctype: type, pageSize: $('#pageSize').val(), nowPage: 0, img: $.img() })
+				
+				
+			})
 			
 			
 			$.each(d.list, (i, j) => {
@@ -123,7 +142,7 @@ brd = (() => {
 					.click((e) => {
 						e.preventDefault()
 						
-						list({ctype: type, pageSize: 5, nowPage: d.pager.prevBlock, img: $.img()})
+						list({ctype: type, pageSize: $('#pageSize').val(), nowPage: d.pager.prevBlock, img: $.img()})
 					})
 			}
 			let blocks = []
@@ -140,48 +159,33 @@ brd = (() => {
 					.click(function (e) {
 						e.preventDefault()
 					
-						list({ ctype: type, pageSize: 5, nowPage: (Number($(this).text()) - 1), img: $.img() })
+						list({ ctype: type, pageSize: $('#pageSize').val(), nowPage: (Number($(this).text()) - 1), img: $.img() })
 					})
 			})
 			if (d.pager.existNext) {
 				$(`<li class="page-item">
 					      <a href="#">다음</a>
 				</li>`)
-//				$(`<span style="border:1px solid black; padding-left: 5px; padding-right: 5px; class="btn-page">다음</span>`)
+// $(`<span style="border:1px solid black; padding-left: 5px; padding-right:
+// 5px; class="btn-page">다음</span>`)
 					.appendTo('#page_form')
 					.click(function (e) {
 						e.preventDefault()
 						
-						 list({ ctype: type, pageSize: 5, nowPage: d.pager.nextBlock, img: $.img() })
-						// list({pageSize: 5, nowPage: d.pager.nextBlock, option:$('#selectOption').val(), search: $('#search').val()})
+						 list({ ctype: type, pageSize: $('#pageSize').val(), nowPage: d.pager.nextBlock, img: $.img() })
+						// list({pageSize: 5, nowPage: d.pager.nextBlock,
+						// option:$('#selectOption').val(), search:
+						// $('#search').val()})
 
 					})
 			}
 			
-//			<form>
-//			페이지 사이즈 입력 <input type="text" id="pageSize" />
-//			<input id="btn_page_size" type="submit" value="입력" />
-//			</form>	
+// <form>
+// 페이지 사이즈 입력 <input type="text" id="pageSize" />
+// <input id="btn_page_size" type="submit" value="입력" />
+// </form>
 		
-		$(`
-				
-		<form>
-		 <select id="pageSize" class="btn btn-default" style="border: solid 1px #ddd; font-size: 13px;">
-		  <option value="5">5개씩 </option>
-		  <option value="10">10개씩</option>
-		  <option value="15">15개씩</option>
-		</select>
-		<input id="btn_page_size" type="submit" value="보기" class="btn btn-default" style="border: solid 1px #ddd; font-size: 13px;"/>
-		</form>
-			
-		`).appendTo('#page_sizeForm')
-	
 		
-			$('#btn_page_size').click(e => {
-				e.preventDefault()
-				list({ ctype: type, pageSize: $('#pageSize').val(), nowPage: 0, img: $.img() })
-				 //list({ pageSize: $('#pageSize').val(), nowPage: 0, option:$('#selectOption').val(), search: $('#search').val() })
-			})
 			
 		 $(`
 		 <select id="selectOption" class="btn btn-default" style="border: solid 1px #ddd; font-size: 13px;">
@@ -198,7 +202,9 @@ brd = (() => {
 			 e.preventDefault()
 		
 			 list({ ctype:type, pageSize: 5, nowPage: 0, option:$('#selectOption').val(), search: $('#search').val(), img: $.img() })
-			 //list({ pageSize: 5, nowPage: 0, option:$('#selectOption').val(), search: $('#search').val() })
+			 // list({ pageSize: 5, nowPage: 0,
+				// option:$('#selectOption').val(), search: $('#search').val()
+				// })
 			
 		 })
 			
@@ -287,10 +293,8 @@ brd = (() => {
 				$(`<td style="text-align:center; font-size: 13px;"><a href="#">${j.title}</a></td>`).appendTo(tr)
 				.click(e=>{
 					e.preventDefault()
-					
-										
+															
 					$.getJSON(_ + '/boards/content/'+j.seq, d =>{
-						
 						content(d)						
 					})
 				});
@@ -303,13 +307,14 @@ brd = (() => {
 				$(`<li class="page-item">
 					      <a href="#">이전</a>
 				</li>`)
-//				$(`<span style="border:1px solid black; padding-left: 5px; padding-right: 5px; class="btn-page">이전</span>`)
+// $(`<span style="border:1px solid black; padding-left: 5px; padding-right:
+// 5px; class="btn-page">이전</span>`)
 					.appendTo('#page_form')
 					.click((e) => {
 						e.preventDefault()
 						
 						list({ctype: type, pageSize: 5, nowPage: d.pager.prevBlock, img: $.img()})
-						//list({pageSize:5, nowPage:d.pager.prevBlock})
+						// list({pageSize:5, nowPage:d.pager.prevBlock})
 					
 					})
 			}
@@ -329,7 +334,9 @@ brd = (() => {
 						e.preventDefault()
 											
 						 list({ ctype: type, pageSize: 5, nowPage: (Number($(this).text()) - 1), img: $.img() })
-					   // list({pageSize: 5, nowPage: (Number($(this).text()) - 1), option:$('#selectOption').val(), search: $('#search').val()})
+					   // list({pageSize: 5, nowPage: (Number($(this).text()) -
+						// 1), option:$('#selectOption').val(), search:
+						// $('#search').val()})
 
 					})
 			})
@@ -337,21 +344,24 @@ brd = (() => {
 				$(`<li class="page-item">
 					      <a href="#">다음</a>
 				</li>`)
-//				$(`<span style="border:1px solid black; padding-left: 5px; padding-right: 5px; class="btn-page">다음</span>`)
+// $(`<span style="border:1px solid black; padding-left: 5px; padding-right:
+// 5px; class="btn-page">다음</span>`)
 					.appendTo('#page_form')
 					.click(function (e) {
 						e.preventDefault()
 						
 						 list({ ctype: type, pageSize: 5, nowPage: d.pager.nextBlock, img: $.img() })
-						// list({pageSize: 5, nowPage: d.pager.nextBlock, option:$('#selectOption').val(), search: $('#search').val()})
+						// list({pageSize: 5, nowPage: d.pager.nextBlock,
+						// option:$('#selectOption').val(), search:
+						// $('#search').val()})
 
 					})
 			}
 			
-//			<form>
-//			페이지 사이즈 입력 <input type="text" id="pageSize" />
-//			<input id="btn_page_size" type="submit" value="입력" />
-//			</form>	
+// <form>
+// 페이지 사이즈 입력 <input type="text" id="pageSize" />
+// <input id="btn_page_size" type="submit" value="입력" />
+// </form>
 		
 		$(`
 				
@@ -370,7 +380,9 @@ brd = (() => {
 			$('#btn_page_size').click(e => {
 				e.preventDefault()
 				list({ctype: type, pageSize: $('#pageSize').val(), nowPage: 0, img: $.img()})
-				 //list({ pageSize: $('#pageSize').val(), nowPage: 0, option:$('#selectOption').val(), search: $('#search').val() })
+				 // list({ pageSize: $('#pageSize').val(), nowPage: 0,
+					// option:$('#selectOption').val(), search:
+					// $('#search').val() })
 			})
 			
 		 $(`
@@ -388,7 +400,9 @@ brd = (() => {
 			 e.preventDefault()
 			
 			 list({ ctype:type, pageSize: 5, nowPage: 0, option:$('#selectOption').val(), search: $('#search').val(), img: $.img() })
-			 //list({ pageSize: 5, nowPage: 0, option:$('#selectOption').val(), search: $('#search').val() })
+			 // list({ pageSize: 5, nowPage: 0,
+				// option:$('#selectOption').val(), search: $('#search').val()
+				// })
 			
 		 })
 			
